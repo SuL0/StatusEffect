@@ -1,0 +1,4 @@
+name: AbnormalState
+version: ${project.version}
+main: me.sul.abnormalstate.AbnormalState
+authors: [ SuL ]
