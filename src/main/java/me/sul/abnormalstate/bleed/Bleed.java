@@ -1,16 +1,17 @@
 package me.sul.abnormalstate.bleed;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Bleed implements Listener {
-    private static final int BLEED_PERIOD = 6; // tick
+    private static final int BLEED_PERIOD = 10; // tick
     private static final double MAX_BLEED_DAMAGE_PER_ONCE = 0.5; // tick
     private final Plugin plugin;
 
@@ -20,9 +21,9 @@ public class Bleed implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onDamage(EntityDamageEvent e) {
-        if (!(e.getEntity() instanceof Player) || e.getCause() == EntityDamageEvent.DamageCause.CUSTOM) return;
+        if (!(e.getEntity() instanceof Player) || e.getCause() == EntityDamageEvent.DamageCause.CUSTOM || e.getFinalDamage() <= 0) return;
         Player victim = (Player) e.getEntity();
         addBleedScheduler(victim, BleedUtil.calcTotalDamageOfBleeding(e.getDamage()));
     }
@@ -39,7 +40,7 @@ public class Bleed implements Listener {
             BleedRunnable bleedRunnable = new BleedRunnable(bleedDamage) {
                 @Override
                 public void run() {
-                    if (remainDamage <= 0) {
+                    if (remainDamage <= 0 || p.isDead()) {
                         bleedRunnableMap.remove(p);
                         cancel(); // NOTE: 밑에 코드 실행하고 cancel? 아니면 바로 cancel?
                         return;
