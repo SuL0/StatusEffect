@@ -1,18 +1,15 @@
-package me.sul.abnormalstate;
+package me.sul.abnormalstate
 
-import me.sul.abnormalstate.bleeding.Bleeding;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
+import me.sul.abnormalstate.bleeding.Bleeding
+import org.bukkit.Bukkit
+import org.bukkit.plugin.java.JavaPlugin
 
-public final class AbnormalState extends JavaPlugin {
-
-    @Override
-    public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(new Bleeding(this), this);
+class AbnormalState : JavaPlugin() {
+    override fun onEnable() {
+        Bukkit.getPluginManager().registerEvents(Bleeding(this), this)
     }
 
-    @Override
-    public void onDisable() {
+    override fun onDisable() {
         // Plugin shutdown logic
     }
 }

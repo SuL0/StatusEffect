@@ -1,36 +1,33 @@
-package me.sul.abnormalstate.bleeding;
+package me.sul.abnormalstate.bleeding
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.entity.Player;
-import org.bukkit.material.MaterialData;
+import org.bukkit.Bukkit
+import org.bukkit.Material
+import org.bukkit.Particle
+import org.bukkit.entity.Player
+import org.bukkit.material.MaterialData
+import java.util.stream.Collectors
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class BleedingUtil {
-    public static double calcTotalDamageOfBleeding(double damagedHealth) {
-        return Math.log10(damagedHealth) * 1.5 + 0.05;
-    }
-    public static void causeBleeding(Player p, double damage) {
-        p.damage(damage);
-        spawnBloodParticle(p);
+object BleedingUtil {
+    fun calcTotalDamageOfBleeding(damagedHealth: Double): Double {
+        return Math.log10(damagedHealth) * 1.5 + 0.05
     }
 
-    public static void spawnBloodParticle(Player p) {
-        Location particleLoc = p.getLocation();
-
-        List<Player> nearbyPlayers = Bukkit.getServer().getOnlinePlayers().stream()
-                .filter(loopP -> loopP.getWorld().equals(p.getWorld()) &&
-                        loopP.getLocation().distance(p.getLocation()) <= 50)
-                .collect(Collectors.toList());
-
-        p.getWorld().spawnParticle(Particle.BLOCK_CRACK, nearbyPlayers, p,
-                particleLoc.getX(), particleLoc.getY(), particleLoc.getZ(),
-                20, 0.3, 0.3, 0.3, 1,
-                new MaterialData(Material.REDSTONE_BLOCK), true);  // 1.15버전은 new MaterialData(...) -> e.getBlock.getType() 만 해도됨
+    fun causeBleeding(p: Player, damage: Double) {
+        p.damage(damage)
+        spawnBloodParticle(p)
     }
 
+    fun spawnBloodParticle(p: Player) {
+        val particleLoc = p.location
+        val nearbyPlayers = Bukkit.getServer().onlinePlayers.stream()
+                .filter { loopP: Player ->
+                    loopP.world == p.world &&
+                            loopP.location.distance(p.location) <= 50
+                }
+                .collect(Collectors.toList())
+        p.world.spawnParticle(Particle.BLOCK_CRACK, nearbyPlayers, p,
+                particleLoc.x, particleLoc.y, particleLoc.z,
+                20, 0.3, 0.3, 0.3, 1.0,
+                MaterialData(Material.REDSTONE_BLOCK), true) // 1.15버전은 new MaterialData(...) -> e.getBlock.getType() 만 해도됨
+    }
 }
