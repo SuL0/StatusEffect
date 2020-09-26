@@ -1,6 +1,6 @@
-package me.sul.abnormalstate
+package kr.sul.abnormalstate
 
-import me.sul.abnormalstate.bleeding.Bleeding
+import kr.sul.abnormalstate.bleeding.Bleeding
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin

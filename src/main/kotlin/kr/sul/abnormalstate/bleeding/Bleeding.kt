@@ -1,6 +1,6 @@
-package me.sul.abnormalstate.bleeding
+package kr.sul.abnormalstate.bleeding
 
-import me.sul.abnormalstate.AbnormalState
+import kr.sul.abnormalstate.AbnormalState
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
