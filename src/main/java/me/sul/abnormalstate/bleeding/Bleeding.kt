@@ -1,15 +1,17 @@
 package me.sul.abnormalstate.bleeding
 
+import me.sul.abnormalstate.AbnormalState
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
-import org.bukkit.plugin.Plugin
-import java.util.*
 
-class Bleeding(private val plugin: Plugin) : Listener {
-    private val bleedingRunnableMap: MutableMap<Player, BleedingRunnable?> = HashMap()
+object Bleeding : Listener {
+    private const val BLEEDING_PERIOD = 10 // tick
+    private const val MAX_BLEED_DAMAGE_PER_ONCE = 0.5 // tick
+
+    private val bleedingRunnableMap: MutableMap<Player, BleedingRunnable> = HashMap()
 
     @EventHandler(priority = EventPriority.HIGHEST)
     fun onDamage(e: EntityDamageEvent) {
@@ -24,7 +26,7 @@ class Bleeding(private val plugin: Plugin) : Listener {
             if (bleedingRunnableMap.containsKey(p)) {
                 bleedingRunnableMap[p]!!.cancel()
             }
-            val bleedingRunnable: BleedingRunnable = object : BleedingRunnable(bleedDamage) {
+            val bleedingRunnable: BleedingRunnable = object : BleedingRunnable(bleedDamage) { // 익명클래스 -> 상속의 연장
                 override fun run() {
                     if (remainDamage <= 0 || p.isDead) {
                         bleedingRunnableMap.remove(p)
@@ -37,7 +39,7 @@ class Bleeding(private val plugin: Plugin) : Listener {
                 }
             }
             bleedingRunnableMap[p] = bleedingRunnable
-            bleedingRunnable.runTaskTimer(plugin, BLEEDING_PERIOD.toLong(), BLEEDING_PERIOD.toLong())
+            bleedingRunnable.runTaskTimer(AbnormalState.instance, BLEEDING_PERIOD.toLong(), BLEEDING_PERIOD.toLong())
         }
     }
 
@@ -46,10 +48,5 @@ class Bleeding(private val plugin: Plugin) : Listener {
         if (!bleedingRunnableMap.containsKey(p)) return true
         val originalBleedDamage = bleedingRunnableMap[p]!!.remainDamage
         return originalBleedDamage < currentBleedDamage
-    }
-
-    companion object {
-        private const val BLEEDING_PERIOD = 10 // tick
-        private const val MAX_BLEED_DAMAGE_PER_ONCE = 0.5 // tick
     }
 }

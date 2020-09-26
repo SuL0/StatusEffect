@@ -1,10 +1,7 @@
-import kr.entree.spigradle.kotlin.*
-
 plugins {
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.10"
     id("kr.entree.spigradle") version "2.2.3"
 }
-
 
 group = "kr.sul"
 version = "1.0-SNAPSHOT"
@@ -25,7 +22,8 @@ dependencies {
 
 spigot {
     authors = listOf("SuL")
-    version = "1.12"
+    apiVersion = "1.12"
+    version = project.version.toString()
 }
 
 
@@ -41,6 +39,8 @@ tasks {
     }
 
     jar {
+        archiveFileName.set("${project.name}_S.jar")
+        destinationDirectory.set(file("C:/Users/PHR/Desktop/PluginStorage"))
         from(
                 shade.map {
                     if (it.isDirectory)

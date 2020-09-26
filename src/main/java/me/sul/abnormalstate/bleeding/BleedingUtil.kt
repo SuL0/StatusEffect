@@ -6,10 +6,11 @@ import org.bukkit.Particle
 import org.bukkit.entity.Player
 import org.bukkit.material.MaterialData
 import java.util.stream.Collectors
+import kotlin.math.log10
 
 object BleedingUtil {
     fun calcTotalDamageOfBleeding(damagedHealth: Double): Double {
-        return Math.log10(damagedHealth) * 1.5 + 0.05
+        return log10(damagedHealth) * 1.5 + 0.05
     }
 
     fun causeBleeding(p: Player, damage: Double) {
@@ -17,7 +18,7 @@ object BleedingUtil {
         spawnBloodParticle(p)
     }
 
-    fun spawnBloodParticle(p: Player) {
+    private fun spawnBloodParticle(p: Player) {
         val particleLoc = p.location
         val nearbyPlayers = Bukkit.getServer().onlinePlayers.stream()
                 .filter { loopP: Player ->
