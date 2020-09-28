@@ -6,8 +6,6 @@ plugins {
 group = "kr.sul"
 version = "1.0-SNAPSHOT"
 
-tasks.compileJava.get().options.encoding = "UTF-8"
-
 repositories {
     mavenCentral()
     maven("https://papermc.io/repo/repository/maven-public/")
@@ -19,7 +17,6 @@ dependencies {
     compileOnly("com.destroystokyo.paper", "paper-api", "1.12.2-R0.1-SNAPSHOT")
 }
 
-
 spigot {
     authors = listOf("SuL")
     apiVersion = "1.12"
@@ -27,27 +24,24 @@ spigot {
 }
 
 
-val shade = configurations.create("shade")
-shade.extendsFrom(configurations.implementation.get())
+tasks.compileJava.get().options.encoding = "UTF-8"
+
+// type = Jar::class가 상속 비슷한 느낌인건가?
+val fatJar = task("fatJar", type = Jar::class) {
+    archiveFileName.set("${project.name}_S.jar")
+    destinationDirectory.set(file("C:/Users/PHR/Desktop/PluginStorage"))
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    with(tasks.jar.get() as CopySpec)
+}
 
 tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-    }
+    compileKotlin.get().kotlinOptions.jvmTarget = "1.8"
+    compileTestKotlin.get().kotlinOptions.jvmTarget = "1.8"
 
     jar {
-        archiveFileName.set("${project.name}_S.jar")
-        destinationDirectory.set(file("C:/Users/PHR/Desktop/PluginStorage"))
-        from(
-                shade.map {
-                    if (it.isDirectory)
-                        it
-                    else
-                        zipTree(it)
-                }
-        )
+        dependsOn(fatJar)
+        archiveFileName.set("${project.name}_S-NotFat.jar")
+        destinationDirectory.set(file("C:/Users/PHR/Desktop/PluginStorage/NotFat"))
     }
 }
+
