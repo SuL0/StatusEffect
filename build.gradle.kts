@@ -12,6 +12,7 @@ repositories {
     mavenLocal()
 }
 
+val pluginStorage = "C:/Users/PHR/Desktop/PluginStorage"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     compileOnly("com.destroystokyo.paper", "paper-api", "1.12.2-R0.1-SNAPSHOT")
@@ -24,15 +25,13 @@ spigot {
 }
 
 
-tasks.compileJava.get().options.encoding = "UTF-8"
-
 tasks {
+    compileJava.get().options.encoding = "UTF-8"
     compileKotlin.get().kotlinOptions.jvmTarget = "1.8"
     compileTestKotlin.get().kotlinOptions.jvmTarget = "1.8"
 
     jar {
         archiveFileName.set("${project.name}_S.jar")
-        destinationDirectory.set(file("C:/Users/PHR/Desktop/PluginStorage"))
+        destinationDirectory.set(file(pluginStorage))
     }
 }
-

@@ -5,7 +5,6 @@ import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.entity.Player
 import org.bukkit.material.MaterialData
-import java.util.stream.Collectors
 import kotlin.math.log10
 
 object BleedingUtil {
@@ -20,12 +19,11 @@ object BleedingUtil {
 
     private fun spawnBloodParticle(p: Player) {
         val particleLoc = p.location
-        val nearbyPlayers = Bukkit.getServer().onlinePlayers.stream()
+        val nearbyPlayers = Bukkit.getServer().onlinePlayers
                 .filter { loopP: Player ->
                     loopP.world == p.world &&
                             loopP.location.distance(p.location) <= 50
                 }
-                .collect(Collectors.toList())
         p.world.spawnParticle(Particle.BLOCK_CRACK, nearbyPlayers, p,
                 particleLoc.x, particleLoc.y, particleLoc.z,
                 20, 0.3, 0.3, 0.3, 1.0,
