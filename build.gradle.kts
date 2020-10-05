@@ -16,6 +16,8 @@ val pluginStorage = "C:/Users/PHR/Desktop/PluginStorage"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     compileOnly("com.destroystokyo.paper", "paper-api", "1.12.2-R0.1-SNAPSHOT")
+
+    testImplementation("com.github.seeseemelk", "MockBukkit-v1.13-spigot", "0.2.0")
 }
 
 spigot {
