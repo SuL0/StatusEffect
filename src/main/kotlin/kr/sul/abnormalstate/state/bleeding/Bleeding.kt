@@ -1,6 +1,9 @@
-package kr.sul.abnormalstate.bleeding
+package kr.sul.abnormalstate.state.bleeding
 
 import kr.sul.abnormalstate.AbnormalState
+import kr.sul.abnormalstate.AbnormalState.Companion.plugin
+import kr.sul.abnormalstate.playerstate.PlayerStateManager.getPlayerState
+import kr.sul.abnormalstate.state.StateManager
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -8,38 +11,44 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
 
 object Bleeding : Listener {
-    private const val BLEEDING_PERIOD = 10 // tick
+    private const val BLEEDING_PERIOD = 10L // tick
     private const val MAX_BLEED_DAMAGE_PER_ONCE = 0.5 // tick
 
     private val bleedingRunnableMap: MutableMap<Player, BleedingRunnable> = HashMap()
 
     @EventHandler(priority = EventPriority.HIGHEST)
     fun onDamage(e: EntityDamageEvent) {
-        if (e.entity !is Player || e.cause == EntityDamageEvent.DamageCause.CUSTOM || e.finalDamage <= 0) return
+        if (e.entity !is Player || !StateManager.isValidTargetPlayer(e.entity as Player)) return
+        if (e.cause == EntityDamageEvent.DamageCause.CUSTOM || e.finalDamage <= 0) return
         val victim = e.entity as Player
-        addBleedScheduler(victim, BleedingUtil.calcTotalDamageOfBleeding(e.damage))
+        makePlayerBleedingFewTimes(victim, BleedingUtil.calcTotalDamageOfBleeding(e.damage))
     }
-    private fun addBleedScheduler(p: Player, bleedDamage: Double) {
+    private fun makePlayerBleedingFewTimes(p: Player, bleedDamage: Double) {
         if (bleedDamage < 0.5) return
+
         if (isCurrentBleedingWorthThanOriginalBleeding(p, bleedDamage)) {
             // 기존 Runnable cancel
             if (bleedingRunnableMap.containsKey(p)) {
                 bleedingRunnableMap[p]!!.cancel()
             }
-            val bleedingRunnable: BleedingRunnable = object : BleedingRunnable(bleedDamage) { // 익명클래스 -> 상속의 연장
+
+            getPlayerState(p).isBleeding = true
+            val bleedingRunnable: BleedingRunnable = object : BleedingRunnable(bleedDamage) { // 익명클래스 = 상속의 연장
                 override fun run() {
-                    if (remainDamage <= 0 || p.isDead) {
+                    // Bleeding 끝
+                    if (remainDamage <= 0 || p.isDead) { // isDead가 ServerQuit 도 포함
+                        getPlayerState(p).isBleeding = false
                         bleedingRunnableMap.remove(p)
                         cancel()
                         return
                     }
-                    val damage = Math.min(remainDamage, MAX_BLEED_DAMAGE_PER_ONCE)
-                    remainDamage -= damage
-                    BleedingUtil.causeBleeding(p, damage)
+                    val damageToInflict = Math.min(remainDamage, MAX_BLEED_DAMAGE_PER_ONCE)
+                    remainDamage -= damageToInflict
+                    BleedingUtil.causeBleeding(p, damageToInflict)
                 }
             }
             bleedingRunnableMap[p] = bleedingRunnable
-            bleedingRunnable.runTaskTimer(AbnormalState.instance, BLEEDING_PERIOD.toLong(), BLEEDING_PERIOD.toLong())
+            bleedingRunnable.runTaskTimer(plugin, BLEEDING_PERIOD, BLEEDING_PERIOD)
         }
     }
 

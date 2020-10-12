@@ -24,6 +24,12 @@ spigot {
     authors = listOf("SuL")
     apiVersion = "1.12"
     version = project.version.toString()
+    softDepends = listOf()
+    commands {
+        create("abnormalstate") {
+            permission = "op.op"
+        }
+    }
 }
 
 

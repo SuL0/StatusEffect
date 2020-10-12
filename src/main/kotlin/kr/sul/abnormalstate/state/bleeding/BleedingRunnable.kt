@@ -1,4 +1,4 @@
-package kr.sul.abnormalstate.bleeding
+package kr.sul.abnormalstate.state.bleeding
 
 import org.bukkit.scheduler.BukkitRunnable
 
