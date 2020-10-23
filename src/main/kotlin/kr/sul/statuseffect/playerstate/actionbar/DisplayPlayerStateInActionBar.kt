@@ -1,9 +1,9 @@
-package kr.sul.abnormalstate.playerstate.actionbar
+package kr.sul.statuseffect.playerstate.actionbar
 
-import kr.sul.abnormalstate.AbnormalState.Companion.plugin
-import kr.sul.abnormalstate.playerstate.PlayerState
-import kr.sul.abnormalstate.playerstate.PlayerStateChangedEvent
-import kr.sul.abnormalstate.playerstate.PlayerStateManager.getPlayerState
+import kr.sul.statuseffect.StatusEffect.Companion.plugin
+import kr.sul.statuseffect.playerstate.PlayerState
+import kr.sul.statuseffect.playerstate.PlayerStateChangedEvent
+import kr.sul.statuseffect.playerstate.PlayerStateManager.getPlayerState
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

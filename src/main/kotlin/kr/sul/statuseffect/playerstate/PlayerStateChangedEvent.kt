@@ -1,4 +1,4 @@
-package kr.sul.abnormalstate.playerstate
+package kr.sul.statuseffect.playerstate
 
 import org.bukkit.entity.Player
 import org.bukkit.event.Event

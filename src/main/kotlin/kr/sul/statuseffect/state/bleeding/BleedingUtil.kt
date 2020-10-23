@@ -1,4 +1,4 @@
-package kr.sul.abnormalstate.state.bleeding
+package kr.sul.statuseffect.state.bleeding
 
 import org.bukkit.Bukkit
 import org.bukkit.Material

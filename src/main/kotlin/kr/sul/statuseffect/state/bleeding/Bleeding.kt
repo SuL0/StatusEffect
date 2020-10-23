@@ -1,9 +1,8 @@
-package kr.sul.abnormalstate.state.bleeding
+package kr.sul.statuseffect.state.bleeding
 
-import kr.sul.abnormalstate.AbnormalState
-import kr.sul.abnormalstate.AbnormalState.Companion.plugin
-import kr.sul.abnormalstate.playerstate.PlayerStateManager.getPlayerState
-import kr.sul.abnormalstate.state.StateManager
+import kr.sul.statuseffect.StatusEffect.Companion.plugin
+import kr.sul.statuseffect.playerstate.PlayerStateManager.getPlayerState
+import kr.sul.statuseffect.state.StateManager
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority

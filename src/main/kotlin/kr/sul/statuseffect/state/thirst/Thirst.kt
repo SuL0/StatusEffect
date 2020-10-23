@@ -1,8 +1,8 @@
-package kr.sul.abnormalstate.state.thirst
+package kr.sul.statuseffect.state.thirst
 
-import kr.sul.abnormalstate.AbnormalState.Companion.plugin
-import kr.sul.abnormalstate.playerstate.PlayerStateManager.getPlayerState
-import kr.sul.abnormalstate.state.StateManager
+import kr.sul.statuseffect.StatusEffect.Companion.plugin
+import kr.sul.statuseffect.playerstate.PlayerStateManager.getPlayerState
+import kr.sul.statuseffect.state.StateManager
 import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.scheduler.BukkitRunnable

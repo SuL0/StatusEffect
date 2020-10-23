@@ -1,9 +1,9 @@
-package kr.sul.abnormalstate
+package kr.sul.statuseffect
 
-import kr.sul.abnormalstate.playerstate.actionbar.DisplayPlayerStateInActionBar
-import kr.sul.abnormalstate.state.bleeding.Bleeding
-import kr.sul.abnormalstate.state.thirst.EventRelatedToThirstListener
-import kr.sul.abnormalstate.state.thirst.Thirst
+import kr.sul.statuseffect.playerstate.actionbar.DisplayPlayerStateInActionBar
+import kr.sul.statuseffect.state.bleeding.Bleeding
+import kr.sul.statuseffect.state.thirst.EventRelatedToThirstListener
+import kr.sul.statuseffect.state.thirst.Thirst
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.PluginDescriptionFile
@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.java.JavaPluginLoader
 import java.io.File
 
-class AbnormalState : JavaPlugin {
+class StatusEffect : JavaPlugin {
     constructor() : super() {}
     constructor(loader: JavaPluginLoader?, description: PluginDescriptionFile?, dataFolder: File?, file: File?) : super(loader, description, dataFolder, file) {}
 
@@ -33,7 +33,7 @@ class AbnormalState : JavaPlugin {
         Bukkit.getPluginManager().registerEvents(Thirst, this)
         Bukkit.getPluginManager().registerEvents(EventRelatedToThirstListener, this)
         // DebuggingCommand
-        getCommand("abnormalstate").executor = DebuggingCommand
+        getCommand("statuseffect").executor = DebuggingCommand
     }
 
 

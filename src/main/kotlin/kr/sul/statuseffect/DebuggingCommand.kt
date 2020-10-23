@@ -1,6 +1,6 @@
-package kr.sul.abnormalstate
+package kr.sul.statuseffect
 
-import kr.sul.abnormalstate.playerstate.PlayerStateManager
+import kr.sul.statuseffect.playerstate.PlayerStateManager
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender

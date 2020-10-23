@@ -1,6 +1,6 @@
-package kr.sul.abnormalstate.state
+package kr.sul.statuseffect.state
 
-import kr.sul.abnormalstate.AbnormalState.Companion.plugin
+import kr.sul.statuseffect.StatusEffect.Companion.plugin
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.World

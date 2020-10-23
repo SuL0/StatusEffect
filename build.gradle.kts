@@ -26,7 +26,7 @@ spigot {
     version = project.version.toString()
     softDepends = listOf()
     commands {
-        create("abnormalstate") {
+        create("statuseffect") {
             permission = "op.op"
         }
     }

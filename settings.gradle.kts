@@ -1,1 +1,1 @@
-rootProject.name = "AbnormalState"
+rootProject.name = "StatusEffect"
