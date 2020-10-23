@@ -1,13 +1,16 @@
 package kr.sul.abnormalstate.state.thirst
 
+import kr.sul.abnormalstate.AbnormalState.Companion.plugin
 import kr.sul.abnormalstate.playerstate.PlayerState
 import kr.sul.abnormalstate.playerstate.PlayerStateManager.getPlayerState
 import kr.sul.abnormalstate.state.StateManager
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerChangedWorldEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
+import org.bukkit.inventory.ItemStack
 
 object EventRelatedToThirstListener: Listener {
     
@@ -24,6 +27,14 @@ object EventRelatedToThirstListener: Listener {
         if (e.item.type == Material.POTION) {
             e.player.sendMessage("§c§lTHIRST: §f물을 섭취하였습니다.")
             getPlayerState(e.player).thirst = PlayerState.DEFAULT_THIRST
+
+            // 물병 회수
+            Bukkit.getServer().scheduler.scheduleSyncDelayedTask(plugin, {
+                e.player.inventory.removeItem(ItemStack(Material.GLASS_BOTTLE))
+                if (e.player.inventory.itemInOffHand.type == Material.GLASS_BOTTLE) {
+                    e.player.inventory.itemInOffHand = null
+                }
+            }, 1L)
         }
     }
 

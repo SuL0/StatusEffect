@@ -16,7 +16,7 @@ object DebuggingCommand: CommandExecutor {
 
         val p = sender as Player
 
-        when(args[0]) {
+        when(args[0].toLowerCase()) {
             "PlayerState".toLowerCase() -> {
                 val playerState = PlayerStateManager.getPlayerState(p)
                 p.sendMessage("isBleeding: ${playerState.isBleeding}")
