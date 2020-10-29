@@ -16,6 +16,10 @@ object DisplayPlayerStateInActionBar: Listener {
     init {
         registerActionbarScheduler()
     }
+    private const val WATER_ICON = "§f骧" // §f 없으면 색 이상해짐
+    private const val BLOOD_ICON = "§f鏤" // §f 없으면 색 이상해짐
+    private const val INFECT_ICON = "§f髍" // §f 없으면 색 이상해짐
+
     private fun registerActionbarScheduler() {
         object: BukkitRunnable() {
             override fun run() {
@@ -42,11 +46,25 @@ object DisplayPlayerStateInActionBar: Listener {
         // 액션바 내용 채우기 //
         // 갈증
         val thirstProcessed = (playerState.thirst / PlayerState.DEFAULT_THIRST * 100 * 10).roundToInt() / 10.0
-        content.append("§4[ §b갈증 §7- §f$thirstProcessed% §4] ")
+        if (thirstProcessed <= 20) {
+            content.append("$WATER_ICON§c$thirstProcessed% §4(갈증)  ")
+        } else {
+            content.append("$WATER_ICON§f$thirstProcessed% §2(갈증)  ")
+        }
 
         // 출혈
         if (playerState.isBleeding) {
-            content.append("§4[ §c출혈중 §4] ")
+            content.append("$BLOOD_ICON§c출혈 §4(출혈)  ")
+        } else {
+            content.append("$BLOOD_ICON§a정상 §2(출혈)  ")
+        }
+
+        // 감염
+        content.append("$INFECT_ICON§a정상 §2(감염)")
+
+        val blank = StringBuilder("")
+        for (i in 0 until (110-content.length)) {
+            blank.append(" ")
         }
 
         p.sendActionBar(content.toString())
