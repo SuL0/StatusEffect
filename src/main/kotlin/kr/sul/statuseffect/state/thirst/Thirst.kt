@@ -35,7 +35,7 @@ object Thirst: Listener {
 
                     when(val thirst = getPlayerState(p).thirst.roundToInt()) {
                         in 20 downTo 10 -> {
-                            if (thirst % 3 == 0) p.sendMessage("§c§lTHIRST: §7목이 말라옵니다. §9물§7을 섭취하십시오.")
+                            if (thirst % 4 == 0) p.sendMessage("§c§lTHIRST: §7목이 말라옵니다. §9물§7을 섭취하십시오.")
                         }
                         in 10 downTo 1 -> {
                             if (thirst % 3 == 0) p.sendMessage("§c§lTHIRST: §7목이 상당히 마릅니다. §9물§7을 섭취하십시오.")
