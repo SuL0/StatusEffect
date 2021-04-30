@@ -16,9 +16,10 @@ object DisplayPlayerStateInActionBar: Listener {
     init {
         registerActionbarScheduler()
     }
-    private const val WATER_ICON = "§f骧" // §f 없으면 색 이상해짐
-    private const val BLOOD_ICON = "§f鏤" // §f 없으면 색 이상해짐
-    private const val INFECT_ICON = "§f髍" // §f 없으면 색 이상해짐
+
+    private const val WATER_ICON = "§f訄" // §f 없으면 색 이상해짐
+    private const val BLOOD_ICON = "§f訅"
+    private const val INFECT_ICON = "§f訆"
 
     private fun registerActionbarScheduler() {
         object: BukkitRunnable() {
