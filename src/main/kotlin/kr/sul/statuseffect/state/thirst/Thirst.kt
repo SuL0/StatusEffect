@@ -1,10 +1,13 @@
 package kr.sul.statuseffect.state.thirst
 
 import kr.sul.statuseffect.StatusEffect.Companion.plugin
+import kr.sul.statuseffect.playerstate.PlayerState
 import kr.sul.statuseffect.playerstate.PlayerStateManager.getPlayerState
 import kr.sul.statuseffect.state.StateManager
 import org.bukkit.Bukkit
+import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerChangedWorldEvent
 import org.bukkit.scheduler.BukkitRunnable
 import kotlin.math.roundToInt
 
@@ -48,5 +51,14 @@ object Thirst: Listener {
                 }
             }
         }.runTaskTimer(plugin, THIRST_DECREASE_PERIOD, THIRST_DECREASE_PERIOD)
+    }
+
+
+    // ActiveWorld 가 아닌 곳으로 이동할 시, 갈증 초기화
+    // 죽을 시 상태 초기화는 필요없을 듯. onMoveWorld 가 있으니
+    @EventHandler
+    fun onMoveWorld(e: PlayerChangedWorldEvent) {
+        if (StateManager.isInActiveWorld(e.player.world)) return
+        getPlayerState(e.player).thirst = PlayerState.DEFAULT_THIRST
     }
 }
