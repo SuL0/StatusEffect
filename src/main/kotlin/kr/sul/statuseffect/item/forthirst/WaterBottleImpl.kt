@@ -1,4 +1,4 @@
-package kr.sul.statuseffect.item.water
+package kr.sul.statuseffect.item.forthirst
 
 import kr.sul.servercore.file.SimplyLog
 import kr.sul.statuseffect.StatusEffect

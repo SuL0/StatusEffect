@@ -1,7 +1,7 @@
 package kr.sul.statuseffect
 
 import kr.sul.statuseffect.item.food.FoodImpl
-import kr.sul.statuseffect.item.water.WaterBottleImpl
+import kr.sul.statuseffect.item.forthirst.WaterBottleImpl
 import kr.sul.statuseffect.playerstate.actionbar.DisplayPlayerStateInActionBar
 import kr.sul.statuseffect.state.bleeding.Bleeding
 import kr.sul.statuseffect.state.thirst.Thirst
