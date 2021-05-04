@@ -1,6 +1,7 @@
 package kr.sul.statuseffect
 
 import kr.sul.statuseffect.item.food.FoodImpl
+import kr.sul.statuseffect.item.forbleeding.BandageImpl
 import kr.sul.statuseffect.item.forthirst.WaterBottleImpl
 import kr.sul.statuseffect.playerstate.actionbar.DisplayPlayerStateInActionBar
 import kr.sul.statuseffect.state.bleeding.Bleeding
@@ -36,6 +37,7 @@ class StatusEffect : JavaPlugin {
         // Item
         Bukkit.getPluginManager().registerEvents(FoodImpl, this)
         Bukkit.getPluginManager().registerEvents(WaterBottleImpl, this)
+        Bukkit.getPluginManager().registerEvents(BandageImpl, this)
 
         // DebuggingCommand
         getCommand("statuseffect").executor = DebuggingCommand
