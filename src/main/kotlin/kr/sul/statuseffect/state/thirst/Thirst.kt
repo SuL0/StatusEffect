@@ -38,13 +38,13 @@ object Thirst: Listener {
 
                     when(val thirst = getPlayerState(p).thirst.roundToInt()) {
                         in 20 downTo 10 -> {
-                            if (thirst % 4 == 0) p.sendMessage("§c§lTHIRST: §7목이 말라옵니다. §9물§7을 섭취하십시오.")
+                            if (thirst % 4 == 0) p.sendMessage("§c§lTHI: §7목이 말라옵니다. §9물§7을 섭취하십시오.")
                         }
                         in 10 downTo 1 -> {
-                            if (thirst % 3 == 0) p.sendMessage("§c§lTHIRST: §7목이 상당히 마릅니다. §9물§7을 섭취하십시오.")
+                            if (thirst % 3 == 0) p.sendMessage("§c§lTHI: §7목이 상당히 마릅니다. §9물§7을 섭취하십시오.")
                         }
                         0 -> {
-                            if (Math.random() <= 0.3) p.sendMessage("§c§lTHIRST: §7목이 말라 §c데미지§7를 입고 있습니다! §9물§7을 섭취하십시오.")
+                            if (Math.random() <= 0.3) p.sendMessage("§c§lTHI: §7목이 말라 §c데미지§7를 입고 있습니다! §9물§7을 섭취하십시오.")
                             p.damage(1.0)
                         }
                     }

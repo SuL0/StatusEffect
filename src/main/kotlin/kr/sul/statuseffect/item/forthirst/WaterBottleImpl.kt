@@ -1,7 +1,8 @@
 package kr.sul.statuseffect.item.forthirst
 
-import kr.sul.servercore.file.SimplyLog
-import kr.sul.statuseffect.StatusEffect
+import kr.sul.servercore.file.simplylog.LogLevel
+import kr.sul.servercore.file.simplylog.SimplyLog
+import kr.sul.statuseffect.StatusEffect.Companion.plugin
 import kr.sul.statuseffect.playerstate.PlayerState
 import kr.sul.statuseffect.playerstate.PlayerStateManager
 import org.bukkit.Material
@@ -23,22 +24,22 @@ object WaterBottleImpl: Listener {
 
             if (potionMeta.basePotionData.type == PotionType.WATER) {
                 e.isCancelled = true
+                val p = e.player
 
-                if (e.player.inventory.itemInMainHand.type == e.item.type) {
-                    if (e.player.inventory.itemInMainHand.amount == 1) {
-                        e.player.inventory.itemInMainHand = null
+                if (p.inventory.itemInMainHand.type == e.item.type) {
+                    if (p.inventory.itemInMainHand.amount == 1) {
+                        p.inventory.itemInMainHand = null
                     } else {
-                        e.player.inventory.itemInMainHand.amount -= 1
+                        p.inventory.itemInMainHand.amount -= 1
                     }
-                    e.player.sendMessage("§c§lTHIRST: §f물을 섭취하였습니다.")
-                    PlayerStateManager.getPlayerState(e.player).thirst = PlayerState.DEFAULT_THIRST
+                    p.sendMessage("§c§lTHI: §f물을 섭취하였습니다.")
+                    PlayerStateManager.getPlayerState(p).thirst = PlayerState.DEFAULT_THIRST
                 }
 
                 // 손에 이벤트 대상인 WaterBottle 아이템이 없음 -> 유저가 버그 유발하려 할 때
                 else {
-                    SimplyLog.log(
-                        StatusEffect.plugin, "손에 이벤트 대상인 WaterBottle 아이템이 없음",
-                        "p: ${e.player.name}", "item: ${e.item.type} | ${e.item.itemMeta?.displayName}")
+                    SimplyLog.log(LogLevel.ERROR_LOW, plugin, "손에 이벤트 대상인 WaterBottle 아이템이 없음",
+                        "p: ${p.name}", "item: ${e.item.type} | ${e.item.itemMeta?.displayName}")
                 }
             }
         }

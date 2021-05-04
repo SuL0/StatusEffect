@@ -1,12 +1,15 @@
 package kr.sul.statuseffect.item.food
 
-import kr.sul.servercore.file.SimplyLog
+import kr.sul.servercore.file.simplylog.LogLevel
+import kr.sul.servercore.file.simplylog.SimplyLog
 import kr.sul.statuseffect.StatusEffect.Companion.plugin
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemConsumeEvent
 
+
+// FIXME: e.isCancelled 때문에, 음식을 겹친 상태에서 연달아서 먹으면 안 먹어지는 사소한 버그가 있음
 object FoodImpl: Listener {
 
     @EventHandler(priority = EventPriority.LOW)
@@ -17,7 +20,7 @@ object FoodImpl: Listener {
             val material = e.item.type
             val itemName = e.item.itemMeta?.displayName ?: return
 
-            val find = AllFoods.find(material, itemName)
+            val find = FoodType.find(material, itemName)
 
             if (find != null) {
                 e.isCancelled = true
@@ -34,11 +37,10 @@ object FoodImpl: Listener {
 
                 // 손에 이벤트 대상인 Food 아이템이 없음 -> 유저가 버그 유발하려 할 때
                else {
-                    SimplyLog.log(plugin, "손에 이벤트 대상인 Food 아이템이 없음",
+                    SimplyLog.log(LogLevel.ERROR_LOW, plugin, "손에 이벤트 대상인 Food 아이템이 없음",
                         "p: ${e.player.name}", "item: ${e.item.type} | ${e.item.itemMeta?.displayName}")
                 }
             }
         }
-
     }
 }
