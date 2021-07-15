@@ -6,11 +6,20 @@ import kr.sul.statuseffect.StatusEffect.Companion.plugin
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerCommandPreprocessEvent
 import org.bukkit.event.player.PlayerItemConsumeEvent
 
 
 // FIXME: e.isCancelled 때문에, 음식을 겹친 상태에서 연달아서 먹으면 안 먹어지는 사소한 버그가 있음
 object FoodImpl: Listener {
+    @EventHandler
+    fun onTest(e: PlayerCommandPreprocessEvent) {
+        if (e.message == "/hungry" && e.player.isOp) {
+            e.isCancelled = true
+            e.player.health = 2.0
+            e.player.foodLevel = 2
+        }
+    }
 
     @EventHandler(priority = EventPriority.LOW)
     fun onEatFood(e: PlayerItemConsumeEvent) {
@@ -43,4 +52,5 @@ object FoodImpl: Listener {
             }
         }
     }
+
 }

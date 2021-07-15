@@ -21,6 +21,9 @@ object DisplayPlayerStateInActionBar: Listener {
     private const val BLOOD_ICON = "§f訅"
     private const val INFECT_ICON = "§f訆"
 
+
+
+    // TODO 출혈은 UI(?) 감염은 삭제 갈증은 아이템 9번칸
     private fun registerActionbarScheduler() {
         object: BukkitRunnable() {
             override fun run() {
@@ -41,6 +44,7 @@ object DisplayPlayerStateInActionBar: Listener {
     }
 
     private fun sendPlayerStateActionBar(p: Player) {
+        /*
         val playerState = getPlayerState(p)
         val content = StringBuilder("")
 
@@ -68,6 +72,6 @@ object DisplayPlayerStateInActionBar: Listener {
             blank.append(" ")
         }
 
-        p.sendActionBar(content.toString())
+        p.sendActionBar(content.toString())*/
     }
 }

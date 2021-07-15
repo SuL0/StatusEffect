@@ -17,7 +17,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     compileOnly("com.destroystokyo.paper", "paper-api", "1.12.2-R0.1-SNAPSHOT")
 
-    compileOnly(files("C:/Users/PHR/Desktop/PluginStorage/ServerCore_S.jar"))
+    compileOnly(files("$pluginStorage/ServerCore_S.jar"))
 }
 
 spigot {
@@ -38,15 +38,19 @@ tasks {
     compileKotlin.get().kotlinOptions.jvmTarget = "1.8"
     compileTestKotlin.get().kotlinOptions.jvmTarget = "1.8"
 
-    val copyPlugin = register<Copy>("copyPlugin") {
+//    val copyPlugin = register<Copy>("copyPlugin") {
+//        from(files("$pluginStorage/${project.name}_S.jar"))
+//        into(file("C:/Users/PHR/Desktop/SERVER2/plugins"))
+//    }
+    val copyPlugin_2 = register<Copy>("copyPlugin") {
         from(files("$pluginStorage/${project.name}_S.jar"))
-        into(file("C:/Users/PHR/Desktop/SERVER2/plugins"))
+        into(file("C:/Users/PHR/Desktop/마인즈서버/plugins"))
     }
 
     jar {
         archiveFileName.set("${project.name}_S.jar")
         destinationDirectory.set(file(pluginStorage))
 
-        finalizedBy(copyPlugin)
+        finalizedBy(copyPlugin_2)
     }
 }
