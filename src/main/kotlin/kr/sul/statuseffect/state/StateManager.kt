@@ -1,5 +1,6 @@
 package kr.sul.statuseffect.state
 
+import kr.sul.servercore.util.ClassifyWorlds
 import kr.sul.statuseffect.StatusEffect.Companion.plugin
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
@@ -10,7 +11,7 @@ object StateManager {
     private val ACTIVE_WORLD = arrayListOf<World>()
     init {
         Bukkit.getScheduler().runTaskLater(plugin, {
-            ACTIVE_WORLD.add(Bukkit.getWorld("Channel01"))
+            ACTIVE_WORLD.addAll(ClassifyWorlds.beachTownWorlds)
         }, 1L) // 월드는 서버 켜지고, 1틱 뒤에 가져와짐
     }
 

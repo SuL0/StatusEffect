@@ -3,9 +3,9 @@ package kr.sul.statuseffect
 import kr.sul.statuseffect.item.food.FoodImpl
 import kr.sul.statuseffect.item.forbleeding.BandageImpl
 import kr.sul.statuseffect.item.forthirst.WaterBottleImpl
-import kr.sul.statuseffect.playerstate.actionbar.DisplayPlayerStateInActionBar
 import kr.sul.statuseffect.state.bleeding.Bleeding
 import kr.sul.statuseffect.state.thirst.Thirst
+import kr.sul.statuseffect.state.thirst.ThirstDisplayInvItem
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.PluginDescriptionFile
@@ -28,11 +28,12 @@ class StatusEffect : JavaPlugin {
 
     private fun registerClasses() {
         // PlayerState
-        Bukkit.getPluginManager().registerEvents(DisplayPlayerStateInActionBar, this)
+//        Bukkit.getPluginManager().registerEvents(DisplayPlayerStateInActionBar, this)
         // Bleeding
         Bukkit.getPluginManager().registerEvents(Bleeding, this)
         // Thirst
         Bukkit.getPluginManager().registerEvents(Thirst, this)
+        Bukkit.getPluginManager().registerEvents(ThirstDisplayInvItem, this)
 
         // Item
         Bukkit.getPluginManager().registerEvents(FoodImpl, this)

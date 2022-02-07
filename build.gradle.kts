@@ -12,7 +12,8 @@ repositories {
     mavenLocal()
 }
 
-val pluginStorage = "C:/Users/PHR/Desktop/PluginStorage"
+val pluginStorage = "C:/MC-Development/PluginStorage"
+val copyPluginDestination = "C:/MC-Development/마인즈서버/plugins"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     compileOnly("com.destroystokyo.paper", "paper-api", "1.12.2-R0.1-SNAPSHOT")
@@ -44,7 +45,7 @@ tasks {
 //    }
     val copyPlugin_2 = register<Copy>("copyPlugin") {
         from(files("$pluginStorage/${project.name}_S.jar"))
-        into(file("C:/Users/PHR/Desktop/마인즈서버/plugins"))
+        into(file(copyPluginDestination))
     }
 
     jar {

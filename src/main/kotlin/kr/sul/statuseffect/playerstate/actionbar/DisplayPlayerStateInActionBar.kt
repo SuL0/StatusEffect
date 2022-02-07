@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.scheduler.BukkitRunnable
 import kotlin.math.roundToInt
 
+/*
 object DisplayPlayerStateInActionBar: Listener {
     init {
         registerActionbarScheduler()
@@ -74,4 +75,4 @@ object DisplayPlayerStateInActionBar: Listener {
 
         p.sendActionBar(content.toString())*/
     }
-}
+}*/
